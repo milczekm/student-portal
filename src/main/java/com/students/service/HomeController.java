@@ -1,4 +1,4 @@
-package com.students.controller;
+package com.students.service;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
