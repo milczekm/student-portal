@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,25 +19,21 @@ public class StudentController {
 
         return "welcome";
     }
-
+    @Autowired
     private StudentServiceImpl studentService;
 
-    @Autowired
-    public void setStudentService(StudentServiceImpl ss){
-        this.studentService = ss;
-    }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String findAll(Model model) {
         model.addAttribute("student", new Student());
-        model.addAttribute("listStudents", this.studentService.findAll());
+        model.addAttribute("listStudents", studentService.findAll());
         return "student";
     }
 
-    @RequestMapping(value= "/student/add", method = RequestMethod.POST)
+    @RequestMapping(value= "/student/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("student") Student s){
 
-            this.studentService.save(s);
+        studentService.save(s);
         return "redirect:/students";
 
     }
@@ -46,7 +41,7 @@ public class StudentController {
     @RequestMapping("/remove/{s}")
     public String delete(Student s){
 
-        this.studentService.delete(s);
+        studentService.delete(s);
         return "redirect:/students";
     }
 
