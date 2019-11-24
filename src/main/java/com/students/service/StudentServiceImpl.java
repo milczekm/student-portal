@@ -52,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
 
     @RequestMapping("/edit/{id}")
     public String editStudent(@PathVariable("id") int id, Model model){
-        model.addAttribute("person", this.studentService.getStudentById(id));
+        model.addAttribute("student", this.studentService.getStudentById(id));
         model.addAttribute("listStudents", this.studentService.listStudents());
         return "student";
     }
