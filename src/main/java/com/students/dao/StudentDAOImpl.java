@@ -40,7 +40,7 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public List<Student> listStudents() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Student> personsList = session.createQuery("from Person").list();
+        List<Student> personsList = session.createQuery("from Student").list();
         for(Student s : listStudents()){
             logger.info("Student List::"+s);
         }
