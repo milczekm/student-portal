@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class StudentServiceImpl implements StudentService {
 
+    @Autowired
     private StudentServiceImpl studentService;
 
     @Autowired(required=true)
