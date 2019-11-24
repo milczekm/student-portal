@@ -36,7 +36,7 @@ public class StudentController {
     }
 
     @RequestMapping(value= "/student/add", method = RequestMethod.POST)
-    public String addPerson(@ModelAttribute("student") Student s){
+    public String addStudent(@ModelAttribute("student") Student s){
 
         if(s.getId() == 0){
 
@@ -51,14 +51,14 @@ public class StudentController {
     }
 
     @RequestMapping("/remove/{id}")
-    public String removePerson(@PathVariable("id") int id){
+    public String removeStudent(@PathVariable("id") int id){
 
         this.studentService.removeStudent(id);
         return "redirect:/students";
     }
 
     @RequestMapping("/edit/{id}")
-    public String editPerson(@PathVariable("id") int id, Model model){
+    public String editStudent(@PathVariable("id") int id, Model model){
         model.addAttribute("student", this.studentService.getStudentById(id));
         model.addAttribute("listStudents", this.studentService.listStudents());
         return "student";
