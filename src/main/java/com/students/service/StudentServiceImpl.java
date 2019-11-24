@@ -17,19 +17,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired(required=true)
     @Qualifier(value= "studentServiceImpl")
-    public void setPersonService(StudentServiceImpl ss){
+    public void setStudentService(StudentServiceImpl ss){
         this.studentService = ss;
     }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String listPersons(Model model) {
+    public String listStudents(Model model) {
         model.addAttribute("student", new Student());
         model.addAttribute("listStudents", this.studentService.listStudents());
         return "student";
     }
 
     @RequestMapping(value= "/student/add", method = RequestMethod.POST)
-    public String addPerson(@ModelAttribute("student") Student s){
+    public String addStudent(@ModelAttribute("student") Student s){
 
         if(s.getId() == 0){
 
