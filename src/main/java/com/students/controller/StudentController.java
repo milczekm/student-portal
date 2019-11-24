@@ -23,15 +23,15 @@ public class StudentController {
 
     private StudentServiceImpl studentService;
 
-    @Autowired(required=true)
+    @Autowired
     public void setStudentService(StudentServiceImpl ss){
         this.studentService = ss;
     }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String listPersons(Model model) {
+    public String findAll(Model model) {
         model.addAttribute("student", new Student());
-        model.addAttribute("listStudents", this.studentService.listStudents());
+        model.addAttribute("listStudents", this.studentService.findAll());
         return "student";
     }
 
@@ -40,28 +40,21 @@ public class StudentController {
 
         if(s.getId() == 0){
 
-            this.studentService.addStudent(s);
+            this.studentService.save(s);
         }else{
 
-            this.studentService.updateStudent(s);
+            this.studentService.update(s);
         }
 
         return "redirect:/students";
 
     }
 
-    @RequestMapping("/remove/{id}")
-    public String removeStudent(@PathVariable("id") int id){
+    @RequestMapping("/remove/{s}")
+    public String delete(Student s){
 
-        this.studentService.removeStudent(id);
+        this.studentService.delete(s);
         return "redirect:/students";
-    }
-
-    @RequestMapping("/edit/{id}")
-    public String editStudent(@PathVariable("id") int id, Model model){
-        model.addAttribute("student", this.studentService.getStudentById(id));
-        model.addAttribute("listStudents", this.studentService.listStudents());
-        return "student";
     }
 
 }

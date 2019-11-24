@@ -4,65 +4,78 @@ package com.students.dao;
 import com.students.model.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
-
-    private static final Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
-
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory ss){
-        this.sessionFactory = ss;
-    }
-
     @Override
-    public void addStudent(Student s) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(s);
-        logger.info("Student saved successfully, Student Details="+s);
-    }
-
-    @Override
-    public void updateStudent(Student s) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(s);
-        logger.info("Student updated successfully, Student Details="+s);
-    }
-
     @SuppressWarnings("unchecked")
-    @Override
-    public List<Student> listStudents() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<Student> personsList = session.createQuery("from Student").list();
-        for(Student s : listStudents()){
-            logger.info("Student List::"+s);
-        }
-        return personsList;
+    public List<Student> findAll() {
+        // Open a session
+        Session session = sessionFactory.openSession();
+
+        // DEPRECATED as of Hibernate 5.2.0
+        // List<Student> students = session.createCriteria(Student.class).list();
+
+        // Create CriteriaBuilder
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        // Create CriteriaQuery
+        CriteriaQuery<Student> criteria = builder.createQuery(Student.class);
+
+        // Specify criteria root
+        criteria.from(Student.class);
+
+        // Execute query
+        List<Student> students = session.createQuery(criteria).getResultList();
+
+        // Close session
+        session.close();
+
+        return students;
     }
 
     @Override
-    public Student getStudentById(int id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Student s = (Student) session.load(Student.class, new Integer(id));
-        logger.info("Student loaded successfully, Student details="+s);
-        return s;
+    public Student findById(Long id) {
+        Session session = sessionFactory.openSession();
+        Student student = session.get(Student.class,id);
+        session.close();
+        return student;
     }
 
     @Override
-    public void removeStudent(int id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Student s = (Student) session.load(Student.class, new Integer(id));
-        if(null != s){
-            session.delete(s);
-        }
-        logger.info("Student deleted successfully, student details="+s);
+    public void save(Student student) {
+        // Open a session
+        Session session = sessionFactory.openSession();
+
+        // Begin a transaction
+        session.beginTransaction();
+
+        // Save the category
+        session.saveOrUpdate(student);
+
+        // Commit the transaction
+        session.getTransaction().commit();
+
+        // Close the session
+        session.close();
     }
 
+    @Override
+    public void delete(Student student) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(student);
+        session.getTransaction().commit();
+        session.close();
+    }
 }

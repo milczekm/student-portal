@@ -6,9 +6,8 @@ import com.students.model.Student;
 
 public interface StudentDAO {
 
-    public void addStudent(Student s);
-    public void updateStudent(Student s);
-    public List<Student> listStudents();
-    public Student getStudentById(int id);
-    public void removeStudent(int id);
+    List<Student> findAll();
+    Student findById(Long id);
+    void save(Student student);
+    void delete(Student student);
 }
