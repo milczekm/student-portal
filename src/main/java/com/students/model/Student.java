@@ -21,10 +21,56 @@ public class Student {
     private String lastName;
 
     @Column(name = "birth_date")
-    Date birthDate;
+    private Date birthDate;
 
     @Column(name = "pesel")
-    private byte PESEL[] = new byte[11];
+    String PESEL;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPESEL() {
+        return PESEL;
+    }
+
+    public void setPESEL(String PESEL) {
+        this.PESEL = PESEL;
+    }
 }

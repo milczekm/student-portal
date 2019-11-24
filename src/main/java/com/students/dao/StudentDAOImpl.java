@@ -1,120 +1,68 @@
 package com.students.dao;
 
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 import com.students.model.Student;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+
+@Repository
 public class StudentDAOImpl implements StudentDAO {
 
-    private Session currentSession;
+    private static final Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
 
-    private Transaction currentTransaction;
+    private SessionFactory sessionFactory;
 
-    public StudentDAO() {
-    }
-
-    public Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
-        return currentSession;
-    }
-
-    public Session openCurrentSessionwithTransaction() {
-        currentSession = getSessionFactory().openSession();
-        currentTransaction = currentSession.beginTransaction();
-        return currentSession;
-    }
-
-    public void closeCurrentSession() {
-        currentSession.close();
-    }
-
-    public void closeCurrentSessionwithTransaction() {
-        currentTransaction.commit();
-        currentSession.close();
-    }
-
-    private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-        return sessionFactory;
-    }
-
-    public Session getCurrentSession() {
-        return currentSession;
-    }
-
-    public void setCurrentSession(Session currentSession) {
-        this.currentSession = currentSession;
-    }
-
-    public Transaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
-    public void setCurrentTransaction(Transaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
-    }
-
-    public void persist(Student entity) {
-        getCurrentSession().save(entity);
-    }
-
-    public void update(Student entity) {
-        getCurrentSession().update(entity);
-    }
-
-    public Student findById(String id) {
-        Student student = (Student) getCurrentSession().get(Student.class, id);
-        return student;
-    }
-
-    public void delete(Student entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Student> findAll() {
-        List<Student> students = (List<Student>) getCurrentSession().createQuery("from Student").list();
-        return students;
-    }
-
-    public void deleteAll() {
-        List<Student> entityList = findAll();
-        for (Student entity : entityList) {
-            delete(entity);
-        }
+    public void setSessionFactory(SessionFactory ss){
+        this.sessionFactory = ss;
     }
 
     @Override
     public void addStudent(Student s) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(s);
+        logger.info("Student saved successfully, Student Details="+s);
     }
 
     @Override
     public void updateStudent(Student s) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(s);
+        logger.info("Student updated successfully, Student Details="+s);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Student> listStudents() {
-        return null;
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Student> personsList = session.createQuery("from Person").list();
+        for(Student s : listStudents()){
+            logger.info("Student List::"+s);
+        }
+        return personsList;
     }
 
     @Override
     public Student getStudentById(int id) {
-        return null;
+        Session session = this.sessionFactory.getCurrentSession();
+        Student s = (Student) session.load(Student.class, new Integer(id));
+        logger.info("Student loaded successfully, Student details="+s);
+        return s;
     }
 
     @Override
     public void removeStudent(int id) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        Student s = (Student) session.load(Student.class, new Integer(id));
+        if(null != s){
+            session.delete(s);
+        }
+        logger.info("Student deleted successfully, student details="+s);
     }
+
 }
