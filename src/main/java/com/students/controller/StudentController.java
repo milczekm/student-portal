@@ -36,16 +36,9 @@ public class StudentController {
     }
 
     @RequestMapping(value= "/student/add", method = RequestMethod.POST)
-    public String addStudent(@ModelAttribute("student") Student s){
-
-        if(s.getId() == 0){
+    public String save(@ModelAttribute("student") Student s){
 
             this.studentService.save(s);
-        }else{
-
-            this.studentService.update(s);
-        }
-
         return "redirect:/students";
 
     }
