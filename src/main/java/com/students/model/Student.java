@@ -23,7 +23,7 @@ public class Student {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @Column(name = "pesel")
+    @Column(name = "pesel", length = 11)
     String PESEL;
 
     public int getId() {

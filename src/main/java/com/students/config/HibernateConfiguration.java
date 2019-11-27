@@ -2,9 +2,9 @@ package com.students.config;
 
 import java.util.Properties;
 
-
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,12 +17,10 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("classpath:database.properties")
 @EnableTransactionManagement
-@ComponentScan(basePackages = {
-        "com.students"
-})
-public class AppContext {
+@ComponentScan({ "com.students.config" })
+@PropertySource(value = { "classpath:application.properties" })
+public class HibernateConfiguration {
 
     @Autowired
     private Environment environment;
@@ -31,9 +29,7 @@ public class AppContext {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] {
-                "com.students.model"
-        });
+        sessionFactory.setPackagesToScan(new String[] { "com.students.model" });
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -58,9 +54,11 @@ public class AppContext {
     }
 
     @Bean
-    public HibernateTransactionManager getTransactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
-        return transactionManager;
+    @Autowired
+    public HibernateTransactionManager transactionManager(SessionFactory s) {
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(s);
+        return txManager;
     }
+
 }
