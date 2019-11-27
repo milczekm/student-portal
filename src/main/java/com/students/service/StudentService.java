@@ -5,8 +5,8 @@ import com.students.model.Student;
 import java.util.List;
 
 public interface StudentService {
-    List<Student> findAll();
-    Student findById(Long id);
-    void save(Student student);
-    void delete(Student student);
+    List<Student> findAllStudents();
+    Student findStudentById(Long id);
+    void saveStudent(Student student);
+    void deleteStudent(Student student);
 }

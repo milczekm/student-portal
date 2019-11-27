@@ -24,25 +24,32 @@ public class StudentController {
 
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String findAll(Model model) {
+    public String findAllStudents(Model model) {
         model.addAttribute("student", new Student());
-        model.addAttribute("listStudents", studentService.findAll());
-        return "student";
+        model.addAttribute("listStudents", studentService.findAllStudents());
+
+        return "listStudents";
     }
 
     @RequestMapping(value= "/student/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("student") Student s){
+    public String saveStudent(@ModelAttribute("student") Student s){
+        studentService.saveStudent(s);
 
-        studentService.save(s);
         return "redirect:/students";
-
     }
 
     @RequestMapping("/remove/{s}")
-    public String delete(Student s){
+    public String deleteStudent(Student s){
+        studentService.deleteStudent(s);
 
-        studentService.delete(s);
         return "redirect:/students";
+    }
+
+    @RequestMapping(value = "/student", method = RequestMethod.GET)
+    public String findStudentbyId(Long id){
+        studentService.findStudentById(id);
+
+        return "student";
     }
 
 }

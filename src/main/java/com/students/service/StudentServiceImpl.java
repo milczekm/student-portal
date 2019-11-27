@@ -13,22 +13,22 @@ public class StudentServiceImpl implements StudentService {
     private StudentDAO studentDao;
 
     @Override
-    public List<Student> findAll() {
-        return studentDao.findAll();
+    public List<Student> findAllStudents() {
+        return studentDao.findAllStudents();
     }
 
     @Override
-    public Student findById(Long id) {
-        return studentDao.findById(id);
+    public Student findStudentById(Long id) {
+        return studentDao.findStudentById(id);
     }
 
     @Override
-    public void save(Student student) {
-        studentDao.save(student);
+    public void saveStudent(Student student) {
+        studentDao.saveStudent(student);
     }
 
     @Override
-    public void delete(Student student) {
-        studentDao.delete(student);
+    public void deleteStudent(Student student) {
+        studentDao.deleteStudent(student);
     }
 }

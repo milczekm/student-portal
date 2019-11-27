@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
@@ -18,34 +17,19 @@ public class StudentDAOImpl implements StudentDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Student> findAll() {
-        // Open a session
+    public List<Student> findAllStudents() {
         Session session = sessionFactory.openSession();
-
-        // DEPRECATED as of Hibernate 5.2.0
-        // List<Student> students = session.createCriteria(Student.class).list();
-
-        // Create CriteriaBuilder
         CriteriaBuilder builder = session.getCriteriaBuilder();
-
-        // Create CriteriaQuery
         CriteriaQuery<Student> criteria = builder.createQuery(Student.class);
-
-        // Specify criteria root
         criteria.from(Student.class);
-
-        // Execute query
         List<Student> students = session.createQuery(criteria).getResultList();
-
-        // Close session
         session.close();
 
         return students;
     }
 
     @Override
-    public Student findById(Long id) {
+    public Student findStudentById(Long id) {
         Session session = sessionFactory.openSession();
         Student student = session.get(Student.class,id);
         session.close();
@@ -53,25 +37,16 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public void save(Student student) {
-        // Open a session
+    public void saveStudent(Student student) {
         Session session = sessionFactory.openSession();
-
-        // Begin a transaction
         session.beginTransaction();
-
-        // Save the category
         session.saveOrUpdate(student);
-
-        // Commit the transaction
         session.getTransaction().commit();
-
-        // Close the session
         session.close();
     }
 
     @Override
-    public void delete(Student student) {
+    public void deleteStudent(Student student) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(student);
