@@ -38,7 +38,7 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @RequestMapping("/remove/{s}")
+    @RequestMapping("/student/delete")
     public String deleteStudent(Student s){
         studentService.deleteStudent(s);
 
@@ -46,7 +46,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/student", method = RequestMethod.GET)
-    public String findStudentbyId(Long id){
+    public String findStudentbById(Long id){
         studentService.findStudentById(id);
 
         return "student";
