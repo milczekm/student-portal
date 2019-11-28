@@ -24,7 +24,7 @@ public class Student {
     private Date birthDate;
 
     @Column(name = "pesel", length = 11)
-    String PESEL;
+    String pesel;
 
     public int getId() {
         return id;
@@ -66,11 +66,11 @@ public class Student {
         this.birthDate = birthDate;
     }
 
-    public String getPESEL() {
-        return PESEL;
+    public String getPesel() {
+        return pesel;
     }
 
-    public void setPESEL(String PESEL) {
-        this.PESEL = PESEL;
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
     }
 }
