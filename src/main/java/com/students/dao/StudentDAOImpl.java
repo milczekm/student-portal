@@ -53,4 +53,17 @@ public class StudentDAOImpl implements StudentDAO {
         session.getTransaction().commit();
         session.close();
     }
+
+  /*  @Override
+    public Long countStudentsByCity(String city){
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.add( Restrictions.eq("city", city));
+        crit.setProjection(Projections.rowCount());
+
+        Long count = crit.uniqueResult();
+
+        return count;
+    } */
+
+
 }

@@ -2,6 +2,7 @@ package com.students.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name="student")
@@ -25,6 +26,9 @@ public class Student {
 
     @Column(name = "pesel", length = 11)
     String pesel;
+
+    @OneToMany(mappedBy = "student")
+    private Set<Address> studentAddresses;
 
     public int getId() {
         return id;
@@ -73,4 +77,5 @@ public class Student {
     public void setPesel(String pesel) {
         this.pesel = pesel;
     }
+
 }
