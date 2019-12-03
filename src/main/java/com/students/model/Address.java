@@ -21,7 +21,7 @@ public class Address {
     private String zipCode;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "address")
+    @Column(name = "type_address")
     private AddressType addressType;
 
     @ManyToOne
