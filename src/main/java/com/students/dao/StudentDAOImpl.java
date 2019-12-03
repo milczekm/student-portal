@@ -2,8 +2,12 @@ package com.students.dao;
 
 
 import com.students.model.Student;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -54,16 +58,20 @@ public class StudentDAOImpl implements StudentDAO {
         session.close();
     }
 
-  /*  @Override
+   @Override
     public Long countStudentsByCity(String city){
-        Criteria criteria = session.createCriteria(Student.class);
-        criteria.add( Restrictions.eq("city", city));
-        crit.setProjection(Projections.rowCount());
+       Session session = sessionFactory.openSession();
+       Criteria criteria = session.createCriteria(Student.class, "student")
+               .createAlias("student.studentAddresses", "adresy", JoinType.LEFT_OUTER_JOIN);
 
-        Long count = crit.uniqueResult();
+       criteria.add( Restrictions.eq("adresy.city", city));
+       criteria.setProjection(Projections.rowCount());
 
-        return count;
-    } */
+       Long count = (Long) criteria.uniqueResult();
+
+       return count;
+
+    }
 
 
 }

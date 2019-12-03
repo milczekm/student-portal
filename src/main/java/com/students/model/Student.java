@@ -27,55 +27,65 @@ public class Student {
     @Column(name = "pesel", length = 11)
     String pesel;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private Set<Address> studentAddresses;
 
-    public int getId() {
+    public int getId(){
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id){
         this.id = id;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public String getSecondName() {
+    public String getSecondName(){
         return secondName;
     }
 
-    public void setSecondName(String secondName) {
+    public void setSecondName(String secondName){
         this.secondName = secondName;
     }
 
-    public String getLastName() {
+    public String getLastName(){
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName){
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public Date getBirthDate(){
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(Date birthDate){
         this.birthDate = birthDate;
     }
 
-    public String getPesel() {
+    public String getPesel(){
         return pesel;
     }
 
-    public void setPesel(String pesel) {
+    public
+    void setPesel(String pesel){
         this.pesel = pesel;
     }
 
+    public
+    Set<Address> getStudentAddresses(){
+        return studentAddresses;
+    }
+
+    public
+    void setStudentAddresses(Set<Address> studentAddresses){
+        this.studentAddresses = studentAddresses;
+    }
 }

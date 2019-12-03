@@ -10,6 +10,7 @@ public interface StudentDAO {
     Student findStudentById(Long id);
     void saveStudent(Student student);
     void deleteStudent(Student student);
+    Long countStudentsByCity(String city);
 
 
 }
