@@ -1,7 +1,7 @@
 package com.students.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -22,7 +22,7 @@ public class Student {
     private String lastName;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "pesel", length = 11)
     String pesel;
@@ -62,11 +62,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate(){
+    public LocalDate getBirthDate(){
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate){
+    public void setBirthDate(LocalDate birthDate){
         this.birthDate = birthDate;
     }
 

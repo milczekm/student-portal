@@ -70,8 +70,18 @@ public class StudentDAOImpl implements StudentDAO {
        Long count = (Long) criteria.uniqueResult();
 
        return count;
-
     }
 
+    @Override
+    public Long countStudentsByAge(Integer age){
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(Student.class, "student");
+        criteria.add( Restrictions.eq("age", age));
+        criteria.setProjection(Projections.rowCount());
+
+        Long count = (Long) criteria.uniqueResult();
+
+        return count;
+    }
 
 }
