@@ -74,20 +74,5 @@ public class StudentDAOImpl implements StudentDAO {
        return count;
     }
 
-    @Override
-    public Integer countStudentsByAge(Integer age){
-        Integer count=0;
-        List<Student> students = findAllStudents();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        for(Student s: students){
-            Integer yearOfBirth=s.getBirthDate().get(Calendar.YEAR);
-            if (((calendar.get(Calendar.YEAR)-yearOfBirth==age))){
-                count++;
-            }
-        }
-
-        return count;
-    }
 
 }

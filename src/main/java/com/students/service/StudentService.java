@@ -9,4 +9,5 @@ public interface StudentService {
     Student findStudentById(Long id);
     void saveStudent(Student student);
     void deleteStudent(Student student);
+    Integer countStudentsByAge(Integer age);
 }

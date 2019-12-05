@@ -5,6 +5,8 @@ import com.students.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,5 +32,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Student student) {
         studentDao.deleteStudent(student);
+    }
+
+    @Override
+    public Integer countStudentsByAge(Integer age){
+        Integer count=0;
+        List<Student> students = findAllStudents();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        Integer currentYear = calendar.get(Calendar.YEAR);
+        for(Student s: students){
+            Integer yearOfBirth=s.getBirthDate().get(Calendar.YEAR);
+            if (currentYear-yearOfBirth==age){
+                count++;
+            }
+        }
+
+        return count;
     }
 }
