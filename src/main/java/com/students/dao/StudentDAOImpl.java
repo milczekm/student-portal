@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -73,13 +75,17 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Long countStudentsByAge(Integer age){
-        Session session = sessionFactory.openSession();
-        Criteria criteria = session.createCriteria(Student.class, "student");
-        criteria.add( Restrictions.eq("age", age));
-        criteria.setProjection(Projections.rowCount());
-
-        Long count = (Long) criteria.uniqueResult();
+    public Integer countStudentsByAge(Integer age){
+        Integer count=0;
+        List<Student> students = findAllStudents();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        for(Student s: students){
+            Integer yearOfBirth=s.getBirthDate().get(Calendar.YEAR);
+            if (((calendar.get(Calendar.YEAR)-yearOfBirth==age))){
+                count++;
+            }
+        }
 
         return count;
     }

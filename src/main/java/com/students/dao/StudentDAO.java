@@ -11,7 +11,7 @@ public interface StudentDAO {
     void saveStudent(Student student);
     void deleteStudent(Student student);
     Long countStudentsByCity(String city);
-    Long countStudentsByAge(Integer age);
+    Integer countStudentsByAge(Integer age);
 
 
 }
