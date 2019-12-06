@@ -33,6 +33,11 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Student student) {
         studentDao.deleteStudent(student);
     }
+    
+    @Override
+    public Long countStudentsByCity(String city){
+        return studentDao.countStudentsByCity(city);
+    }
 
     @Override
     public Integer countStudentsByAge(Integer age){
