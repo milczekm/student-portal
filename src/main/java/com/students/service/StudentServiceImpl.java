@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
     public Long countStudentsByCity(String city){
         if (city == null || city.isEmpty()) {
         throw new Exception("Incorrect parameter city!");
-        
+        }
             return studentDao.countStudentsByCity(city);
     }
 
