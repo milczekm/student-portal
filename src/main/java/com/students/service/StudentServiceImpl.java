@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
-    private StudentDAO studentDao;
+    private StudentDAO studentDao; 
 
     @Override
     public List<Student> findAllStudents() {
@@ -32,6 +32,14 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Student student) {
         studentDao.deleteStudent(student);
+    }
+    
+    @Override
+    public Long countStudentsByCity(String city){
+        if (city == null || city.isEmpty()) {
+        throw new Exception("Incorrect parameter city!");
+        }
+            return studentDao.countStudentsByCity(city);
     }
 
     @Override
