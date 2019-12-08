@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
-    private StudentDAO studentDao; 
+    private StudentDAO studentDao;
 
     @Override
     public List<Student> findAllStudents() {
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Long countStudentsByCity(String city){
+    public Long countStudentsByCity(String city) {
         if (city == null || city.isEmpty()) {
             throw new IllegalArgumentException("Incorrect parameter city!");
         }
@@ -51,15 +51,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Integer countStudentsByAge(Integer age){
-        Integer count=0;
+    public Integer countStudentsByAge(Integer age) {
+        Integer count = 0;
         List<Student> students = findAllStudents();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         Integer currentYear = calendar.get(Calendar.YEAR);
-        for(Student s: students){
-            Integer yearOfBirth=s.getBirthDate().get(Calendar.YEAR);
-            if (currentYear-yearOfBirth==age){
+        for (Student s : students) {
+            Integer yearOfBirth = s.getBirthDate().get(Calendar.YEAR);
+            if (currentYear - yearOfBirth == age) {
                 count++;
             }
         }

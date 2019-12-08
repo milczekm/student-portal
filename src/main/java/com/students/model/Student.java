@@ -9,8 +9,8 @@ import java.util.Set;
 @Table(name="student")
 public class Student {
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -35,68 +35,55 @@ public class Student {
         return id;
     }
 
-    public
-    void setId (int id){
+    public void setId(int id){
         this.id = id;
     }
 
-    public
-    String getName (){
+    public String getName(){
         return name;
     }
 
-    public
-    void setName (String name){
+    public void setName(String name){
         this.name = name;
     }
 
-    public
-    String getSecondName (){
+    public String getSecondName(){
         return secondName;
     }
 
-    public
-    void setSecondName (String secondName){
+    public void setSecondName(String secondName){
         this.secondName = secondName;
     }
 
-    public
-    String getLastName (){
+    public String getLastName(){
         return lastName;
     }
 
-    public
-    void setLastName (String lastName){
+    public void setLastName(String lastName){
         this.lastName = lastName;
     }
 
-    public
-    Calendar getBirthDate (){
+    public Calendar getBirthDate(){
         return birthDate;
     }
 
-    public
-    void setBirthDate (Calendar birthDate){
+    public void setBirthDate(Calendar birthDate){
         this.birthDate = birthDate;
     }
 
-    public
-    String getPesel (){
+    public String getPesel(){
         return pesel;
     }
 
-    public
-    void setPesel (String pesel){
+    public void setPesel(String pesel){
         this.pesel = pesel;
     }
 
-    public
-    Set<Address> getStudentAddresses (){
+    public Set<Address> getStudentAddresses(){
         return studentAddresses;
     }
 
-    public
-    void setStudentAddresses (Set<Address> studentAddresses){
+    public void setStudentAddresses(Set<Address> studentAddresses){
         this.studentAddresses = studentAddresses;
     }
 }
