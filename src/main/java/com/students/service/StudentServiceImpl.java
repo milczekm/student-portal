@@ -33,14 +33,6 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Student student) {
         studentDao.deleteStudent(student);
     }
-    
-    @Override
-    public Long countStudentsByCity(String city){
-        if (city == null || city.isEmpty()) {
-        throw new Exception("Incorrect parameter city!");
-        }
-            return studentDao.countStudentsByCity(city);
-    }
 
     @Override
     public Long countStudentsByCity(String city){
