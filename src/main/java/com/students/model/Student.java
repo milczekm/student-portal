@@ -1,7 +1,6 @@
 package com.students.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Set;
 
