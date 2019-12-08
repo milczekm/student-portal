@@ -35,6 +35,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Long countStudentsByCity(String city){
+        if (city == null || city.isEmpty()) {
+            throw new IllegalArgumentException("Incorrect parameter city!");
+        }
+        return studentDao.countStudentsByCity(city);
+    }
+
+    @Override
     public Integer countStudentsByAge(Integer age){
         Integer count=0;
         List<Student> students = findAllStudents();

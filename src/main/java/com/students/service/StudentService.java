@@ -10,4 +10,5 @@ public interface StudentService {
     void saveStudent(Student student);
     void deleteStudent(Student student);
     Integer countStudentsByAge(Integer age);
+    Long countStudentsByCity(String city);
 }
