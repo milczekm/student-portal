@@ -9,13 +9,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDAO studentDao;
 
     @Override
-    public List<Student> findAllStudents() {
+   public List<Student> findAllStudents() {
         return studentDao.findAllStudents();
     }
 
@@ -33,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Student student) {
         studentDao.deleteStudent(student);
     }
-    
+
 
     @Override
     public Long countStudentsByCity(String city) {
