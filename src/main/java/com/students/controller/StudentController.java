@@ -16,48 +16,48 @@ public class StudentController {
 
     public static boolean isPeselCorrect(String pesel){
 
-        int rok     = parseInt(pesel.substring(0,2),10);
-        int miesiac = parseInt(pesel.substring(2,4),10)-1;
-        int dzien   = parseInt(pesel.substring(4,6),10);
+        int year     = parseInt(pesel.substring(0,2),10);
+        int month = parseInt(pesel.substring(2,4),10)-1;
+        int day   = parseInt(pesel.substring(4,6),10);
 
-        if(miesiac >= 80)
+        if(month >= 80)
         {
-            rok += 1800;
-            miesiac = miesiac - 80;
+            year += 1800;
+            month = month - 80;
         }
-        else if(miesiac >= 60)
+        else if(month >= 60)
         {
-            rok += 2200;
-            miesiac = miesiac - 60;
+            year += 2200;
+            month = month - 60;
         }
-        else if (miesiac >= 40)
+        else if (month >= 40)
         {
-            rok += 2100;
-            miesiac = miesiac-40;
+            year += 2100;
+            month = month-40;
         }
-        else if (miesiac >= 20)
+        else if (month >= 20)
         {
-            rok += 2000;
-            miesiac = miesiac - 20;
+            year += 2000;
+            month = month - 20;
         }
         else
         {
-            rok += 1900;
+            year += 1900;
         }
 
-        int[] wagi = {9,7,3,1,9,7,3,1,9,7};
-        int suma = 0;
+        int[] wags = {9,7,3,1,9,7,3,1,9,7};
+        int sum = 0;
 
-        for(int i=0;i < wagi.length; i++)
+        for(int i=0;i < wags.length; i++)
         {
-            suma+=(parseInt(pesel.substring(i,i+1),10)*wagi[i]);
+            sum+=(parseInt(pesel.substring(i,i+1),10)*wags[i]);
         }
 
-        suma=suma % 10;
+        sum=sum % 10;
 
         int cyfraKontr = parseInt(pesel.substring(10,11),10);
 
-        return (suma == cyfraKontr);
+        return (sum == cyfraKontr);
     }
 
     @RequestMapping("/")
