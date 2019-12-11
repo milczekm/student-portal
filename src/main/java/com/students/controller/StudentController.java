@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Calendar;
+
 import static java.lang.Integer.parseInt;
 
 @Controller
 public class StudentController {
 
-    public static boolean isPeselCorrect(String pesel){
+    private boolean isPeselCorrect(String pesel){
 
         int year     = parseInt(pesel.substring(0,2),10);
         int month = parseInt(pesel.substring(2,4),10)-1;
@@ -58,6 +60,40 @@ public class StudentController {
         int cyfraKontr = parseInt(pesel.substring(10,11),10);
 
         return (sum == cyfraKontr);
+    }
+
+    private boolean isBirthDateCorrect(Student s){
+
+        int rok     = parseInt(s.getPesel().substring(0,2),10);
+        int miesiac = parseInt(s.getPesel().substring(2,4),10)-1;
+        int dzien   = parseInt(s.getPesel().substring(4,6),10);
+
+        if(miesiac >= 80)
+        {
+            rok += 1800;
+            miesiac = miesiac - 80;
+        }
+        else if(miesiac >= 60)
+        {
+            rok += 2200;
+            miesiac = miesiac - 60;
+        }
+        else if (miesiac >= 40)
+        {
+            rok += 2100;
+            miesiac = miesiac-40;
+        }
+        else if (miesiac >= 20)
+        {
+            rok += 2000;
+            miesiac = miesiac - 20;
+        }
+        else
+        {
+            rok += 1900;
+        }
+
+        return (((s.getBirthDate().get(Calendar.YEAR)%100)==rok) && ((s.getBirthDate().get(Calendar.MONTH))==miesiac));
     }
 
     @RequestMapping("/")
