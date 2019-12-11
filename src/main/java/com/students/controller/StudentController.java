@@ -8,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -96,23 +99,22 @@ public class StudentController {
         return (((s.getBirthDate().get(Calendar.YEAR)%100)==rok) && ((s.getBirthDate().get(Calendar.MONTH))==miesiac));
     }
 
-    @RequestMapping("/")
+  /*  @RequestMapping("/")
     public String welcome(Model model) {
         model.addAttribute("greeting", "Welcome to Student Base!");
         model.addAttribute("tagline", "The one and only amazing student-portal!");
 
         return "welcome";
-    }
+    } */
     @Autowired
     private StudentService studentService;
 
-
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String findAllStudents(Model model) {
         model.addAttribute("student", new Student());
-        model.addAttribute("listStudents", studentService.findAllStudents());
+        model.addAttribute("list", studentService.findAllStudents());
 
-        return "listStudents";
+        return "list";
     }
 
     @RequestMapping(value= "/student/save", method = RequestMethod.POST)
