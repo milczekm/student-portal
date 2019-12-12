@@ -67,36 +67,37 @@ public class StudentController {
 
     private boolean isBirthDateCorrect(Student s){
 
-        int rok     = parseInt(s.getPesel().substring(0,2),10);
-        int miesiac = parseInt(s.getPesel().substring(2,4),10)-1;
-        int dzien   = parseInt(s.getPesel().substring(4,6),10);
+        int year     = parseInt(s.getPesel().substring(0,2),10);
+        int month = parseInt(s.getPesel().substring(2,4),10)-1;
+        int day   = parseInt(s.getPesel().substring(4,6),10);
 
-        if(miesiac >= 80)
+        if(month >= 80)
         {
-            rok += 1800;
-            miesiac = miesiac - 80;
+            year += 1800;
+            month = month - 80;
         }
-        else if(miesiac >= 60)
+        else if(month >= 60)
         {
-            rok += 2200;
-            miesiac = miesiac - 60;
+            year += 2200;
+            month = month - 60;
         }
-        else if (miesiac >= 40)
+        else if (month >= 40)
         {
-            rok += 2100;
-            miesiac = miesiac-40;
+            year += 2100;
+            month = month-40;
         }
-        else if (miesiac >= 20)
+        else if (month >= 20)
         {
-            rok += 2000;
-            miesiac = miesiac - 20;
+            year += 2000;
+            month = month - 20;
         }
         else
         {
-            rok += 1900;
+            year += 1900;
         }
 
-        return (((s.getBirthDate().get(Calendar.YEAR)%100)==rok) && ((s.getBirthDate().get(Calendar.MONTH))==miesiac));
+        return (((s.getBirthDate().get(Calendar.YEAR)%100)==year) && ((s.getBirthDate().get(Calendar.MONTH))==month) &&
+                ((s.getBirthDate().get(Calendar.DAY_OF_MONTH))==day));
     }
 
   /*  @RequestMapping("/")
