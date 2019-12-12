@@ -120,7 +120,7 @@ public class StudentController {
 
     @RequestMapping(value= "/student/save", method = RequestMethod.POST)
     public String saveStudent(@ModelAttribute("student") Student s){
-        if(isPeselCorrect(s.getPesel())) {
+        if(isPeselCorrect(s.getPesel()) && isBirthDateCorrect(s)) {
             studentService.saveStudent(s);
         } else {
             throw new IllegalArgumentException("Incorrect parameter pesel!");
