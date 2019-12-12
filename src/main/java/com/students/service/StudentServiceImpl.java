@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findStudentById(Long id){
+    public Student findStudentById(Integer id){
         return studentDao.findStudentById(id);
     }
 

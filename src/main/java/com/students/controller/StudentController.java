@@ -120,7 +120,7 @@ public class StudentController {
         return "list";
     }
 
-    @RequestMapping("/studentportal/new")
+    @RequestMapping("/new")
     public String newStudentForm(Map<String, Object> model) {
         Student student = new Student();
         model.put("student", studentService);
@@ -138,6 +138,7 @@ public class StudentController {
         return "redirect:/students";
     }
 
+
     @RequestMapping("/student/delete")
     public String deleteStudent(Student s){
         studentService.deleteStudent(s);
@@ -145,8 +146,8 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @RequestMapping(value = "/student", method = RequestMethod.GET)
-    public String findStudentbById(Long id){
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String findStudentbById(Integer id){
         studentService.findStudentById(id);
 
         return "student";

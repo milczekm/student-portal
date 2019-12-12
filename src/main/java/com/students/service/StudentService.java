@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface StudentService {
     List<Student> findAllStudents();
-    Student findStudentById(Long id);
+    Student findStudentById(Integer id);
     void saveStudent(Student student);
     void deleteStudent(Student student);
     Integer countStudentsByAge(Integer age);

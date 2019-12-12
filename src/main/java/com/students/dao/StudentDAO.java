@@ -7,7 +7,7 @@ import com.students.model.Student;
 public interface StudentDAO {
 
     List<Student> findAllStudents();
-    Student findStudentById(Long id);
+    Student findStudentById(Integer id);
     void saveStudent(Student student);
     void deleteStudent(Student student);
     Long countStudentsByCity(String city);

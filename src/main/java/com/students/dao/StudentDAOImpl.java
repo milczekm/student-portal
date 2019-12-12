@@ -35,7 +35,7 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Student findStudentById(Long id) {
+    public Student findStudentById(Integer id) {
         Session session = sessionFactory.openSession();
         Student student = session.get(Student.class,id);
         session.close();
