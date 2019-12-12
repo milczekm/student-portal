@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
@@ -107,6 +108,7 @@ public class StudentController {
 
         return "welcome";
     } */
+
     @Autowired
     private StudentService studentService;
 
@@ -118,7 +120,14 @@ public class StudentController {
         return "list";
     }
 
-    @RequestMapping(value= "/student/save", method = RequestMethod.POST)
+    @RequestMapping("/studentportal/new")
+    public String newStudentForm(Map<String, Object> model) {
+        Student student = new Student();
+        model.put("student", studentService);
+        return "new_student";
+    }
+
+    @RequestMapping(value= "/save", method = RequestMethod.POST)
     public String saveStudent(@ModelAttribute("student") Student s){
         if(isPeselCorrect(s.getPesel()) && isBirthDateCorrect(s)) {
             studentService.saveStudent(s);
