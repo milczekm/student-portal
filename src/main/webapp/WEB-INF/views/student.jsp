@@ -6,14 +6,20 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>New Student</title>
+    <title>Edit Customer</title>
 </head>
 <body>
 <div align="center">
-    <h2>New Student</h2>
+    <h2>Edit Student</h2>
     <%--@elvariable id="student" type=""--%>
     <form:form action="save" method="post" modelAttribute="student">
         <table border="0" cellpadding="5">
+            <tr>
+                <td>ID: </td>
+                <td>${student.id}
+                    <form:hidden path="id" />
+                </td>
+            </tr>
             <tr>
                 <td>Name: </td>
                 <td><form:input path="name" /></td>
@@ -34,10 +40,6 @@
                 <td>Pesel: </td>
                 <td><form:input path="pesel" /></td>
             </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="Save"></td>
-                </tr>
-            </table>
             <tr>
                 <td colspan="2"><input type="submit" value="Save"></td>
             </tr>

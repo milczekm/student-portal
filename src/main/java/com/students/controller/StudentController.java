@@ -139,7 +139,7 @@ public class StudentController {
     }
 
 
-    @RequestMapping("/student/delete")
+    @RequestMapping("/delete")
     public String deleteStudent(Student s){
         studentService.deleteStudent(s);
 
