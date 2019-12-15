@@ -2,6 +2,7 @@ package com.students.model;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,16 @@ public class Student {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private Set<Address> studentAddresses;
+
+    private Date birthDate2;
+
+    public Date getBirthDate2(){
+        return this.birthDate.getTime();
+    }
+
+    public void setBirthDate2(Date birthDate2){
+        this.birthDate2 = birthDate2;
+    }
 
     public int getId(){
         return id;
@@ -63,6 +74,7 @@ public class Student {
     }
 
     public Calendar getBirthDate(){
+
         return birthDate;
     }
 
