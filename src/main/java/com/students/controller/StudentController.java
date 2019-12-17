@@ -124,7 +124,7 @@ public class StudentController {
     public String newStudentForm(Map<String, Object> model) {
         Student student = new Student();
         model.put("student", studentService);
-        return "new_student";
+        return "student";
     }
 
     @RequestMapping(value= "/save", method = RequestMethod.POST)
