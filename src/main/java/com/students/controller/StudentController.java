@@ -123,8 +123,8 @@ public class StudentController {
     @RequestMapping("/new")
     public String newStudentForm(Map<String, Object> model) {
         Student student = new Student();
-        model.put("student", studentService);
-        return "student";
+        model.put("student", student);
+        return "new_student";
     }
 
     @RequestMapping(value= "/save", method = RequestMethod.POST)
