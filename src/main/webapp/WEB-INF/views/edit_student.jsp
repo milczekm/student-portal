@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td>Birth date: </td>
-                <td><form:input path="name" /></td>
+                <td><form:input path="birthDate2" /></td>
             </tr>
             <tr>
                 <td>Pesel: </td>

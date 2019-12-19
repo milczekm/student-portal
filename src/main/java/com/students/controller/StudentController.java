@@ -3,15 +3,16 @@ package com.students.controller;
 import com.students.model.Student;
 import com.students.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,35 +22,6 @@ import static java.lang.Integer.parseInt;
 public class StudentController {
 
     private boolean isPeselCorrect(String pesel){
-
-        int year     = parseInt(pesel.substring(0,2),10);
-        int month = parseInt(pesel.substring(2,4),10)-1;
-        int day   = parseInt(pesel.substring(4,6),10);
-
-        if(month >= 80)
-        {
-            year += 1800;
-            month = month - 80;
-        }
-        else if(month >= 60)
-        {
-            year += 2200;
-            month = month - 60;
-        }
-        else if (month >= 40)
-        {
-            year += 2100;
-            month = month-40;
-        }
-        else if (month >= 20)
-        {
-            year += 2000;
-            month = month - 20;
-        }
-        else
-        {
-            year += 1900;
-        }
 
         int[] wags = {9,7,3,1,9,7,3,1,9,7};
         int sum = 0;
@@ -101,6 +73,13 @@ public class StudentController {
                 ((s.getBirthDate().get(Calendar.DAY_OF_MONTH))==day));
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Student.class, new CustomDateEditor(sdf, true));
+    }
+
   /*  @RequestMapping("/")
     public String welcome(Model model) {
         model.addAttribute("greeting", "Welcome to Student Base!");
@@ -112,7 +91,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String findAllStudents(Model model) {
         model.addAttribute("student", new Student());
         model.addAttribute("list", studentService.findAllStudents());
@@ -129,11 +108,13 @@ public class StudentController {
 
     @RequestMapping(value= "/save", method = RequestMethod.POST)
     public String saveStudent(@ModelAttribute("student") Student s){
-        if(isPeselCorrect(s.getPesel()) && isBirthDateCorrect(s)) {
+       /* if(isPeselCorrect(s.getPesel()) && isBirthDateCorrect(s)) {
             studentService.saveStudent(s);
         } else {
             throw new IllegalArgumentException("Incorrect parameter pesel!");
-        }
+        } */
+
+       studentService.saveStudent(s);
 
         return "redirect:/students";
     }
@@ -146,11 +127,12 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String findStudentbById(Integer id){
-        studentService.findStudentById(id);
-
-        return "student";
+    @RequestMapping("/edit")
+    public ModelAndView editStudentForm(@RequestParam int id) {
+        ModelAndView model = new ModelAndView("edit_student");
+        Student student = studentService.findStudentById(id);
+        model.addObject("student", student);
+        return model;
     }
 
 }

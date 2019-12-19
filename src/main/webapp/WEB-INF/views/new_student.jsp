@@ -34,9 +34,6 @@
                 <td>Pesel: </td>
                 <td><form:input path="pesel" /></td>
             </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="Save"></td>
-                </tr>
             </table>
             <tr>
                 <td colspan="2"><input type="submit" value="Save"></td>
