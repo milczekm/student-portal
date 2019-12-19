@@ -33,6 +33,7 @@ public class Student {
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private Set<Address> studentAddresses;
 
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     private Date birthDate2;
 
     public Date getBirthDate2(){
